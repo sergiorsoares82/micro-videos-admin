@@ -1,9 +1,11 @@
 import { DataType, Sequelize } from "sequelize-typescript";
 import { CategoryModel } from "../category.model";
 import { Category } from "../../../../domain/category.entity";
+import { Config } from "../../../../../shared/infra/config";
 describe("CategoryModel Integration Tests", () => {
   let sequelize;
   beforeEach(async () => {
+    console.log(Config.db());
     sequelize = new Sequelize({
       dialect: "sqlite",
       storage: ":memory:",
@@ -16,7 +18,7 @@ describe("CategoryModel Integration Tests", () => {
   test("mapping props", () => {
     const attributesMap = CategoryModel.getAttributes();
     const attributes = Object.keys(CategoryModel.getAttributes());
-    console.log(attributes, attributesMap);
+    // console.log(attributes, attributesMap);
     expect(attributes).toStrictEqual([
       "category_id",
       "name",
