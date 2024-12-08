@@ -4,17 +4,12 @@ import { CategoryModel } from "../category.model";
 import { CategoryModelMapper } from "../category-model-mapper";
 import { Category } from "../../../../domain/category.entity";
 import { Uuid } from "../../../../../shared/domain/value-objects/uuid.vo";
+import { setupSequelize } from "../../../../../shared/infra/testing/helpers";
 describe("CategoryModelMapper Integration Tests", () => {
   let sequelize;
-  beforeEach(async () => {
-    sequelize = new Sequelize({
-      dialect: "sqlite",
-      storage: ":memory:",
-      models: [CategoryModel],
-      logging: false,
-    });
-    await sequelize.sync({ force: true });
-  });
+
+  setupSequelize({ models: [CategoryModel] });
+
   it("should throws error when category is invalid", () => {
     const model = CategoryModel.build({
       category_id: "9366b7dc-2d71-4799-b91c-c64adb205104",
@@ -35,6 +30,7 @@ describe("CategoryModelMapper Integration Tests", () => {
       });
     }
   });
+
   it("should convert a category model to a category aggregate", () => {
     const created_at = new Date();
     const model = CategoryModel.build({
@@ -55,6 +51,7 @@ describe("CategoryModelMapper Integration Tests", () => {
       }).toJSON()
     );
   });
+
   test("should convert a category aggregate to a category model", () => {
     const created_at = new Date();
     const aggregate = new Category({
