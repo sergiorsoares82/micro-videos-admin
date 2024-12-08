@@ -13,6 +13,7 @@ describe("UpdateCategoryUseCase Unit Tests", () => {
     repository = new CategoryInMemoryRepository();
     useCase = new UpdateCategoryUseCase(repository);
   });
+
   it("should throws error when entity not found", async () => {
     await expect(() =>
       useCase.execute({ id: "fake id", name: "fake" })
@@ -22,6 +23,18 @@ describe("UpdateCategoryUseCase Unit Tests", () => {
       useCase.execute({ id: uuid.id, name: "fake" })
     ).rejects.toThrow(new NotFoundError(uuid.id, Category));
   });
+
+  it("should throw an error when aggregate is not valid", async () => {
+    const aggregate = new Category({ name: "Movie" });
+    repository.items = [aggregate];
+    await expect(() =>
+      useCase.execute({
+        id: aggregate.category_id.id,
+        name: "t".repeat(256),
+      })
+    ).rejects.toThrow("Entity Validation Error");
+  });
+
   it("should update a category", async () => {
     const spyUpdate = jest.spyOn(repository, "update");
     const entity = new Category({ name: "Movie" });
