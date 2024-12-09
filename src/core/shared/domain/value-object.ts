@@ -1,5 +1,6 @@
 import isEqual from "lodash/isEqual";
 
+console.log(typeof isEqual)
 export abstract class ValueObject {
   public equals(vo: this): boolean {
     if (vo === null || vo === undefined) {
