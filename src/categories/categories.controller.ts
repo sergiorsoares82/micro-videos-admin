@@ -5,8 +5,7 @@ import type { CategorySequelizeRepository } from '@core/category/infra/db/sequel
 
 @Controller('categories')
 export class CategoriesController {
-  constructor(private categoryRepo: CategorySequelizeRepository){
-    console.log(this.categoryRepo);
+  constructor() {
   }
 
   @Post()
