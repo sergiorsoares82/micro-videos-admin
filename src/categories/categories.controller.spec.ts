@@ -1,10 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { CategoriesController } from './categories.controller';
-import { CategorySequelizeRepository } from '../core/category/infra/db/sequelize/category-sequelize.repository';
-import { CategoryModel } from '../core/category/infra/db/sequelize/category.model';
-import { SequelizeModule, getModelToken } from '@nestjs/sequelize';
-import { CategoriesModule } from './categories.module';
 import { DatabaseModule } from 'src/database/database.module';
+import { CategoriesController } from './categories.controller';
+import { CategoriesModule } from './categories.module';
 //piramide de testes
 
 

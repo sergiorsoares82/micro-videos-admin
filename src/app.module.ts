@@ -5,12 +5,13 @@ import { CategoriesModule } from './categories/categories.module';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { CategoryModel } from './core/category/infra/db/sequelize/category.model';
 import { DatabaseModule } from './database/database.module';
+import { ConfigModule } from './config/config.module';
 
 @Module({
   imports: [
+    ConfigModule.forRoot(),
     DatabaseModule,
     CategoriesModule,
-    DatabaseModule,
   ],
   controllers: [AppController],
   providers: [AppService],
