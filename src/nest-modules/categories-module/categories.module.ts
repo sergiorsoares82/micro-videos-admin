@@ -10,7 +10,6 @@ import { CATEGORY_PROVIDERS } from './categories.providers';
   providers: [
     ...Object.values(CATEGORY_PROVIDERS.REPOSITORIES),
     ...Object.values(CATEGORY_PROVIDERS.USE_CASES),
-
   ],
 })
 export class CategoriesModule {}

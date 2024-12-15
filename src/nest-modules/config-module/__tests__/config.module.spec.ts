@@ -184,7 +184,7 @@ describe('ConfigModule Unit Tests', () => {
           }),
         ],
       }).compile();
-  
+
       fail('ConfigModule should throw an error when env vars are invalid');
     } catch (e) {
       // Check if the error message contains the expected validation error
