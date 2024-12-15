@@ -5,7 +5,7 @@ import { join } from 'path';
 function expectValidate(schema: Joi.Schema, value: any) {
   return expect(schema.validate(value, { abortEarly: false }).error.message);
 }
-describe.skip('Schema Unit Tests', () => {
+describe('Schema Unit Tests', () => {
   describe('DB Schema', () => {
     const schema = Joi.object({
       ...CONFIG_DB_SCHEMA,

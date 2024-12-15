@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { DatabaseModule } from 'src/database/database.module';
+import { DatabaseModule } from 'src/nest-modules/database-module/database.module';
 import { CategoriesController } from './categories.controller';
 import { CategoriesModule } from './categories.module';
-import { ConfigModule } from 'src/config/config.module';
+import { ConfigModule } from 'src/nest-modules/config-module/config.module';
 //piramide de testes
 
 
