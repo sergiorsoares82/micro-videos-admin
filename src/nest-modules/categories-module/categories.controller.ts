@@ -15,9 +15,14 @@ import {
   ParseUUIDPipe,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
-import { CategoryPresenter } from './categories.presenter';
+import {
+  CategoryCollectionPresenter,
+  CategoryPresenter,
+} from './categories.presenter';
 import { CreateCategoryDto } from './dto/create-category.dto';
+import type { SearchCategoriesDto } from './dto/search-categories.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
 
 @Controller('categories')
@@ -44,7 +49,10 @@ export class CategoriesController {
   }
 
   @Get()
-  findAll() {}
+  async search(@Query() searchCategoriesDto: SearchCategoriesDto) {
+    const output = await this.listUseCase.execute(searchCategoriesDto);
+    return new CategoryCollectionPresenter(output);
+  }
 
   @Get(':id')
   async findOne(

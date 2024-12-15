@@ -1,4 +1,5 @@
 import type { CategoryOutput } from '@core/category/application/common/category-output';
+import type { ListCategoriesOutput } from '@core/category/application/use-cases/list-categories/list-categories.use-case';
 import { Transform } from 'class-transformer';
 
 export class CategoryPresenter {
@@ -15,5 +16,13 @@ export class CategoryPresenter {
     this.description = output.description;
     this.is_active = output.is_active;
     this.created_at = output.created_at;
+  }
+}
+
+export class CategoryCollectionPresenter {
+  data: CategoryPresenter[];
+  constructor(output: ListCategoriesOutput) {
+    const items = ({ items, ...paginationProps } = output);
+    this.data = items.map((item) => new CategoryPresenter(item));
   }
 }
