@@ -1,26 +1,24 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-  Inject,
-  ParseUUIDPipe,
-} from '@nestjs/common';
-import { CreateCategoryDto } from './dto/create-category.dto';
-import { UpdateCategoryDto } from './dto/update-category.dto';
-import { ListCategoriesUseCase } from '@core/category/application/use-cases/list-categories/list-categories.use-case';
-import { GetCategoryUseCase } from '@core/category/application/use-cases/get-category/get-category.use-case';
+import type { CategoryOutput } from '@core/category/application/common/category-output';
+import { CreateCategoryUseCase } from '@core/category/application/use-cases/create-category/create-category.use-case';
 import { DeleteCategoryUseCase } from '@core/category/application/use-cases/delete-category/delete-category.use-case';
+import { GetCategoryUseCase } from '@core/category/application/use-cases/get-category/get-category.use-case';
+import { ListCategoriesUseCase } from '@core/category/application/use-cases/list-categories/list-categories.use-case';
 import { UpdateCategoryUseCase } from '@core/category/application/use-cases/update-category/update-category.use-case';
 import {
-  CreateCategoryUseCase,
-  type CreateCategoryInput,
-} from '@core/category/application/use-cases/create-category/create-category.use-case';
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpCode,
+  Inject,
+  Param,
+  ParseUUIDPipe,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { CategoryPresenter } from './categories.presenter';
-import type { CategoryOutput } from '@core/category/application/common/category-output';
+import { CreateCategoryDto } from './dto/create-category.dto';
+import { UpdateCategoryDto } from './dto/update-category.dto';
 
 @Controller('categories')
 export class CategoriesController {
@@ -49,7 +47,12 @@ export class CategoriesController {
   findAll() {}
 
   @Get(':id')
-  findOne(@Param('id') id: string) {}
+  async findOne(
+    @Param('id', new ParseUUIDPipe({ errorHttpStatusCode: 422 })) id: string,
+  ) {
+    const output = await this.getUseCase.execute({ id });
+    return CategoriesController.serializeCategory(output);
+  }
 
   @Patch(':id')
   async update(
@@ -63,6 +66,7 @@ export class CategoriesController {
     return CategoriesController.serializeCategory(output);
   }
 
+  @HttpCode(204)
   @Delete(':id')
   remove(
     @Param('id', new ParseUUIDPipe({ errorHttpStatusCode: 422 })) id: string,
