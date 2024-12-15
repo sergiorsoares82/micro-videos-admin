@@ -1,10 +1,10 @@
 import type { CreateCategoryOutput } from '@core/category/application/use-cases/create-category/create-category.use-case';
-import { CategoriesController } from './categories.controller';
+import { CategoriesController } from '../categories.controller';
 import {
   CategoryCollectionPresenter,
   CategoryPresenter,
-} from './categories.presenter';
-import type { CreateCategoryDto } from './dto/create-category.dto';
+} from '../categories.presenter';
+import type { CreateCategoryDto } from '../dto/create-category.dto';
 import type {
   UpdateCategoryInput,
   UpdateCategoryOutput,
