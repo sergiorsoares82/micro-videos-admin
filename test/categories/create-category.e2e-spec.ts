@@ -1,16 +1,12 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { INestApplication } from '@nestjs/common';
+import { CategoryOutputMapper } from '@core/category/application/common/category-output';
+import { Uuid } from '@core/shared/domain/value-objects/uuid.vo';
+import { instanceToPlain } from 'class-transformer';
+import { CategoriesController } from 'src/nest-modules/categories-module/categories.controller';
 import request from 'supertest';
-import { CreateCategoryFixture } from '../../src/nest-modules/categories-module/testing/category-fixture';
 import { ICategoryRepository } from '../../src/core/category/domain/category.repository';
 import { CATEGORY_PROVIDERS } from '../../src/nest-modules/categories-module/categories.providers';
-import { AppModule } from '../../src/app.module';
-import { applyGlobalConfig } from '../../src/nest-modules/global-config';
+import { CreateCategoryFixture } from '../../src/nest-modules/categories-module/testing/category-fixture';
 import { startApp } from '../../src/nest-modules/shared-module/testing/helpers';
-import { Uuid } from '@core/shared/domain/value-objects/uuid.vo';
-import { CategoriesController } from 'src/nest-modules/categories-module/categories.controller';
-import { CategoryOutputMapper } from '@core/category/application/common/category-output';
-import { instanceToPlain } from 'class-transformer';
 
 describe('CategoriesController (e2e)', () => {
   const appHelper = startApp();
@@ -37,7 +33,8 @@ describe('CategoriesController (e2e)', () => {
           .expect(value.expected);
         });
       });
-      describe('should return a response error with 422 status code when throw EntityValidationError', () => {
+    
+    describe('should return a response error with 422 status code when throw EntityValidationError', () => {
         const invalidRequest =
           CreateCategoryFixture.arrangeForEntityValidationError();
         const arrange = Object.keys(invalidRequest).map((key) => ({
@@ -52,7 +49,8 @@ describe('CategoriesController (e2e)', () => {
             .expect(value.expected);
         });
       });
-      describe('should create a category', () => {
+    
+    describe('should create a category', () => {
         const arrange = CreateCategoryFixture.arrangeForCreate();
         test.each(arrange)(
           'when body is $send_data',
@@ -78,5 +76,5 @@ describe('CategoriesController (e2e)', () => {
           },
         );
       });
-  });
-});
+  })
+})
