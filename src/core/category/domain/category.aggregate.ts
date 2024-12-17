@@ -1,3 +1,4 @@
+import { AggregateRoot } from "@core/shared/domain/aggregate.root";
 import { Entity } from "../../shared/domain/entity";
 import { EntityValidationError } from "../../shared/domain/validators/validation.error";
 import type { ValueObject } from "../../shared/domain/value-object";
@@ -12,13 +13,17 @@ export type CategoryConstructorProps = {
   is_active?: boolean;
   created_at?: Date;
 };
+
 export type CategoryCreateCommand = {
   name: string;
   description?: string | null;
   is_active?: boolean;
 };
-export class Category extends Entity {
-  category_id: Uuid;
+
+export class CategoryId extends Uuid {}
+
+export class Category extends AggregateRoot {
+  category_id: CategoryId;
   name: string;
   description: string | null;
   is_active: boolean;

@@ -10,7 +10,7 @@ import { UpdateCategoryUseCase } from '../../../core/category/application/use-ca
 import { ListCategoriesUseCase } from '../../../core/category/application/use-cases/list-categories/list-categories.use-case';
 import { GetCategoryUseCase } from '../../../core/category/application/use-cases/get-category/get-category.use-case';
 import { DeleteCategoryUseCase } from '../../../core/category/application/use-cases/delete-category/delete-category.use-case';
-import { Category } from '@core/category/domain/category.entity';
+import { Category } from '@core/category/domain/category.aggregate';
 import { CategoryOutputMapper } from '@core/category/application/common/category-output';
 import {
   CategoryCollectionPresenter,
